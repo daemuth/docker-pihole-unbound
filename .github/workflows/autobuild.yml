@@ -29,9 +29,9 @@ jobs:
       id: previous_release
       env:
         token: ${{ secrets.GITHUB_TOKEN }}
-        repository: "chriscrowe/docker-pihole-unbound"
+        repository: "daemuth/docker-pihole-unbound"
         type: "stable"
-      run: echo release=$(curl --silent "https://api.github.com/repos/chriscrowe/docker-pihole-unbound/releases/latest" | jq -r '.tag_name' ) >> $GITHUB_OUTPUT
+      run: echo release=$(curl --silent "https://api.github.com/repos/daemuth/docker-pihole-unbound/releases/latest" | jq -r '.tag_name' ) >> $GITHUB_OUTPUT
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
@@ -55,7 +55,7 @@ jobs:
         context: "{{defaultContext}}:one-container/pihole-unbound/"
         platforms: linux/arm/v7,linux/arm64/v8,linux/amd64
         push: true
-        tags: cbcrowe/pihole-unbound:latest,cbcrowe/pihole-unbound:${{ steps.latest_release.outputs.release }}
+        tags: levela/pihole-unbound:latest,levela/pihole-unbound:${{ steps.latest_release.outputs.release }}
       if: ${{ steps.latest_release.outputs.release != steps.previous_release.outputs.release }}
         
     - name: Create release
